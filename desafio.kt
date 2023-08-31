@@ -1,21 +1,62 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
 
 enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
-class Usuario
+// Aluno
+// Aluno Caracteristica
+// Nome 
+class Aluno(val nome: String)
 
+// Conteudo Educacional 
+// Conteudo Educacional Caracteristicas
+// Nome
+// Duração: por padrão 60 
 data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-
-    val inscritos = mutableListOf<Usuario>()
+// Formação possui Conteudos Educacionais 
+// Formação Caracteristicas
+// Nome
+// Nível
+// ConteudosEducacionais 
+data class Formacao(val nome: String, val nivel: Nivel, val conteudos: List<ConteudoEducacional>) {
     
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    //Aluno 
+    val inscritos = mutableListOf<Aluno>()
+
+    //funcao matricular aluno
+    fun matricular(aluno: Aluno) {
+        inscritos.add(aluno)
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+
+    // criar alunos
+    val aluno1 = Aluno("João")
+    val aluno2 = Aluno("Maria")
+
+    // criar conteudos
+    val conteudo1 = ConteudoEducacional("Introdução ao Kotlin", 90)
+    val conteudo2 = ConteudoEducacional("Programação Orientada a Objetos", 120)
+    
+    //criar formação 
+    val formacao = Formacao("Desenvolvimento em Kotlin", Nivel.INTERMEDIARIO, listOf(conteudo1, conteudo2))
+
+    formacao.matricular(aluno1)
+    formacao.matricular(aluno2)
+
+    // listar dados 
+    // Formacao
+    // Niveis
+    // Conteudos
+    // Alunos 
+    println("Formação: ${formacao.nome}")
+    println("Nível: ${formacao.nivel}")
+    println("Conteúdos:")
+    for (conteudo in formacao.conteudos) {
+        println("- ${conteudo.nome} (${conteudo.duracao} minutos)")
+    }
+    println("Inscritos:")
+    for (inscrito in formacao.inscritos) {
+        println("- ${inscrito.nome}")
+    }
 }
